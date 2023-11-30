@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Navbar from "components/Navbar";
 
 export const metadata: Metadata = {
   title: "Arzinaja Test",
@@ -12,8 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="fa">
+      <body>
+        <Navbar /> {children}
+      </body>
     </html>
   );
 }
