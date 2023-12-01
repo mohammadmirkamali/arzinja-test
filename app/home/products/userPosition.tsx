@@ -17,7 +17,6 @@ const UserPosition: React.FC = () => {
   const setPosition = useCategoryStore((state) => state.setPosition);
 
   const handleSubmit = () => {
-    console.log("submit", markerPosition);
     setPosition(markerPosition);
     router.push(ReserveRoute());
   };

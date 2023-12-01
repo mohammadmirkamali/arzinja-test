@@ -41,7 +41,7 @@ export default function ReservesPage() {
       {position ? (
         <div className="border border-ash50 p-5 rounded-lg">
           {list.map((item) => (
-            <div key={item.title} className="flex justify-between">
+            <div key={item.title} className="flex mb-3 justify-between">
               {item.title}: <span className="font-bold">{item.value}</span>
             </div>
           ))}
