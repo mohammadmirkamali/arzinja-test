@@ -1,17 +1,18 @@
 import { create } from "zustand";
+import { BuyProductType } from "./lib/types";
 
 type StoreType = {
   selectedCategoryId: number | null;
   selectedProductId: number | null;
-  position: [number, number] | null;
+  buyProduct: BuyProductType | null;
   setSelectedProductId: (id: number | null) => void;
   setSelectedCategoryId: (id: number) => void;
-  setPosition: (value: [lat: number, lng: number] | null) => void;
+  setBuyProduct: (value: BuyProductType) => void;
 };
 
 const useCategoryStore = create<StoreType>((set) => ({
-  position: null,
-  setPosition: (value) => set({ position: value }),
+  buyProduct: null,
+  setBuyProduct: (value) => set({ buyProduct: value }),
   selectedCategoryId: null,
   setSelectedCategoryId: (id: number) => set({ selectedCategoryId: id }),
   selectedProductId: null,

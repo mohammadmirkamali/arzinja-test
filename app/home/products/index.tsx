@@ -7,7 +7,7 @@ import fa from "app/lib/fa.json";
 import NoData from "components/NoData";
 import dynamic from "next/dynamic";
 
-const UserPosition = dynamic(() => import("./userPosition"));
+const BuyProduct = dynamic(() => import("./buyProduct"));
 
 const Products: React.FC = () => {
   const selectedCategoryId = useCategoryStore(
@@ -53,7 +53,10 @@ const Products: React.FC = () => {
                   </button>
                 </div>
               ) : (
-                <UserPosition />
+                <BuyProduct
+                  productId={selectedProductId}
+                  categoryId={selectedCategoryId}
+                />
               )}
             </div>
           </div>
