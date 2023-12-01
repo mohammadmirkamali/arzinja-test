@@ -3,7 +3,7 @@ import Products from "./home/products";
 
 export default function Home() {
   return (
-    <div className="flex items-center w-[1200px] m-auto mt-14 justify-between">
+    <div className="flex flex-col items-center md:items-start md:flex-row md:mx-40 m-auto mt-14 gap-8 justify-between">
       <Categories />
       <Products />
     </div>

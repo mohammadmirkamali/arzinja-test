@@ -12,7 +12,6 @@ const Categories: React.FC = () => {
     (state) => state.setSelectedCategoryId
   );
 
-  console.log(selectedCategoryId);
   const handleSelectCategory = useCallback(
     (id: number) => {
       setSelectedCategoryId(id);
@@ -21,7 +20,7 @@ const Categories: React.FC = () => {
   );
 
   return (
-    <ul className="menu menu-lg bg-base-200 w-56 rounded-box">
+    <ul className="menu menu-lg h-fit bg-ash40 w-56 rounded-box">
       {categories.map((item) => (
         <li key={item.id} onClick={(): void => handleSelectCategory(item.id)}>
           <a className={`${selectedCategoryId === item.id ? "active" : ""}`}>
