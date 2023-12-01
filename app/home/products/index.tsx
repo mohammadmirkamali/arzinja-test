@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo } from "react";
 import categories from "app/mock/categories.json";
 import useCategoryStore from "app/store";
 import fa from "app/lib/fa.json";
-import Map from "components/Map";
 import UserPosition from "./userPosition";
+import NoData from "components/NoData";
 
 const Products: React.FC = () => {
   const selectedCategoryId = useCategoryStore(
@@ -30,7 +30,6 @@ const Products: React.FC = () => {
     [setSelectedProductId]
   );
 
-  console.log("products");
   return (
     <div className="flex flex-1 flex-wrap justify-center gap-6">
       {products ? (
@@ -58,22 +57,7 @@ const Products: React.FC = () => {
           </div>
         ))
       ) : (
-        <div role="alert" className="alert">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            className="stroke-info shrink-0 w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            ></path>
-          </svg>
-          <span>{fa.product.chooseCategory}</span>
-        </div>
+        <NoData message={fa.product.chooseCategory} />
       )}
     </div>
   );

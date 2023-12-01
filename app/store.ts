@@ -6,7 +6,7 @@ type StoreType = {
   position: [number, number] | null;
   setSelectedProductId: (id: number | null) => void;
   setSelectedCategoryId: (id: number) => void;
-  setPosition: (value: [lat: number, lng: number]) => void;
+  setPosition: (value: [lat: number, lng: number] | null) => void;
 };
 
 const useCategoryStore = create<StoreType>((set) => ({

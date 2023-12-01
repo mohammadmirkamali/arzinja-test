@@ -7,9 +7,9 @@ import { ReserveRoute } from "app/lib/routes";
 
 const UserPosition: React.FC = () => {
   const router = useRouter();
-  const [parentMarkerPosition, setParentMarkerPosition] = useState<
-    [number, number]
-  >([0, 0]);
+  const [markerPosition, setMarkerPosition] = useState<[number, number] | null>(
+    null
+  );
 
   const setSelectedProductId = useCategoryStore(
     (state) => state.setSelectedProductId
@@ -17,19 +17,23 @@ const UserPosition: React.FC = () => {
   const setPosition = useCategoryStore((state) => state.setPosition);
 
   const handleSubmit = () => {
-    setPosition(parentMarkerPosition);
+    console.log("submit", markerPosition);
+    setPosition(markerPosition);
     router.push(ReserveRoute());
   };
 
   const handleSelectProduct = useCallback(
     (id: number | null) => {
       setSelectedProductId(id);
+      setPosition(null);
     },
-    [setSelectedProductId]
+    [setSelectedProductId, setPosition]
   );
 
-  const handleMarkerPositionChange = (newMarkerPosition: [number, number]) => {
-    setParentMarkerPosition(newMarkerPosition);
+  const handleMarkerPositionChange = (
+    newMarkerPosition: [number, number] | null
+  ) => {
+    setMarkerPosition(newMarkerPosition);
   };
   return (
     <div className="mt-4">

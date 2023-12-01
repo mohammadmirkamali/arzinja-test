@@ -2,4 +2,4 @@
 export const HomeRoute = (): string => `/`;
 
 // RESERVE ///////////////////////////////////////////////////
-export const ReserveRoute = (): string => `/reserve`;
+export const ReserveRoute = (): string => `/reserves`;

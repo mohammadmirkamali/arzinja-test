@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -17,13 +17,12 @@ const customMarkerIcon = new L.Icon({
 });
 
 const Map: React.FC<{
-  onMarkerPositionChange: (newMarkerPosition: [number, number]) => void;
+  onMarkerPositionChange: (newMarkerPosition: [number, number] | null) => void;
 }> = ({ onMarkerPositionChange }) => {
-  const [markerPosition, setMarkerPosition] = useState<LatLngExpression>([
-    35.76653945, 51.4749824,
-  ]);
+  const initialPosition: [number, number] = [35.76653945, 51.4749824];
+  const [markerPosition, setMarkerPosition] =
+    useState<LatLngExpression>(initialPosition);
 
-  console.log(markerPosition);
   const handleMarkerDragEnd = (event: LeafletMouseEvent) => {
     const { lat, lng } = event.target.getLatLng();
     const newMarkerPosition: [number, number] = [lat, lng];
@@ -38,19 +37,23 @@ const Map: React.FC<{
     onMarkerPositionChange(newMarkerPosition);
   };
 
-  const ChangeView: React.FC<{ zoom: number }> = ({ zoom }) => {
+  const ChangeView: React.FC = () => {
     const map = useMapEvents({
       click: (event: LeafletMouseEvent) => {
         const { lat, lng } = event.latlng;
         const newMarkerPosition: [number, number] = [lat, lng];
         setMarkerPosition(newMarkerPosition);
         onMarkerPositionChange(newMarkerPosition);
-        map.setView([lat, lng], zoom);
+        map.setView([lat, lng]);
       },
     });
 
     return null;
   };
+
+  useEffect(() => {
+    onMarkerPositionChange(initialPosition);
+  }, []);
 
   return (
     <MapContainer
@@ -60,7 +63,7 @@ const Map: React.FC<{
       style={{ height: "300px", width: "100%" }}
       onClick={handleMapClick}
     >
-      <ChangeView zoom={15} />
+      <ChangeView />
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <Marker
         // @ts-ignore
