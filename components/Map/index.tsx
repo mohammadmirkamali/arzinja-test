@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  useMapEvents,
-} from "react-leaflet";
+import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import L, { LatLngExpression, LeafletMouseEvent } from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 const customMarkerIcon = new L.Icon({
   iconUrl: "/images/map-marker.svg",
-  iconSize: [32, 32], // Width and height of the icon
-  iconAnchor: [16, 32], // Position of the icon anchor (centered at the bottom)
-  popupAnchor: [0, -32], // Position of the popup anchor (above the icon)
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32],
 });
 
 const Map: React.FC<{
@@ -25,13 +19,6 @@ const Map: React.FC<{
 
   const handleMarkerDragEnd = (event: LeafletMouseEvent) => {
     const { lat, lng } = event.target.getLatLng();
-    const newMarkerPosition: [number, number] = [lat, lng];
-    setMarkerPosition(newMarkerPosition);
-    onMarkerPositionChange(newMarkerPosition);
-  };
-
-  const handleMapClick = (event: LeafletMouseEvent) => {
-    const { lat, lng } = event.latlng;
     const newMarkerPosition: [number, number] = [lat, lng];
     setMarkerPosition(newMarkerPosition);
     onMarkerPositionChange(newMarkerPosition);
@@ -53,24 +40,23 @@ const Map: React.FC<{
 
   useEffect(() => {
     onMarkerPositionChange(initialPosition);
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <MapContainer
-      // @ts-ignore
       center={markerPosition}
       zoom={15}
       style={{ height: "300px", width: "100%" }}
-      onClick={handleMapClick}
     >
       <ChangeView />
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <Marker
-        // @ts-ignore
         draggable
+        eventHandlers={{
+          dragend: handleMarkerDragEnd as any,
+        }}
         icon={customMarkerIcon}
         position={markerPosition}
-        onDragend={handleMarkerDragEnd}
       />
     </MapContainer>
   );

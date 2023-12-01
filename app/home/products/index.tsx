@@ -4,8 +4,10 @@ import React, { useCallback, useMemo } from "react";
 import categories from "app/mock/categories.json";
 import useCategoryStore from "app/store";
 import fa from "app/lib/fa.json";
-import UserPosition from "./userPosition";
 import NoData from "components/NoData";
+import dynamic from "next/dynamic";
+
+const UserPosition = dynamic(() => import("./userPosition"));
 
 const Products: React.FC = () => {
   const selectedCategoryId = useCategoryStore(
